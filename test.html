@@ -13,7 +13,7 @@
     try {
       var j = JSON.parse(line);
       console.log("Received JSON: ",j);
-      elements.temperature.setValue(j.temperature);
+      elements.temperature.setValue(j.temperature*100);
     } catch(e) {
       console.log("Received: ",line);
     }
