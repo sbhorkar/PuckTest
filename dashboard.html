@@ -8,6 +8,10 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
+  function getSteps() {
+    return steps;
+  }
+   
   // Called when we get a line of data - updates the light color
   function onLine(line) {
     try {
