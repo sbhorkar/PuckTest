@@ -8,19 +8,6 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-  
-  function getSteps() {
-    require("puckjsv2-accel-bigmovement").on();
-    var steps = 0;
-    function getSteps() {
-      require("puckjsv2-accel-bigmovement").on();
-      var steps = 0;
-      Puck.on('accel', function(a) {
-         steps++;
-      });
-      return steps;
-   }
-   
   // Called when we get a line of data - updates the light color
   function onLine(line) {
     try {
