@@ -17,16 +17,17 @@
       }
       // remove the 'connect' window
       elements.modal.remove();
-      function getData() {
        // update the controls with the values we received
        elements.bat.setValue(d.bat);
-       // now get the history - these could take a while
-       // so we do it separately.
-       Puck.eval("steps", function(d) {
-         console.log("d:" + d);
-         elements.steps.setValue(d);
-       });
-      }
+    });
+  }
+  
+  function getData() {            
+     // now get the history - these could take a while
+    // so we do it separately.
+    Puck.eval("steps", function(d) {
+      console.log("d:" + d);
+      elements.steps.setValue(d);
     });
   }
   function setControls() {
