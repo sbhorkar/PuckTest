@@ -4,7 +4,7 @@ body {
 .td {
   position: absolute;
   /*border: 2px solid #555;*/
-  color: #252627;
+  color: #F2EFE9;
   font: 12px sans-serif;
   background-color: #252627;
 }
@@ -43,7 +43,7 @@ body {
   margin-left: auto; margin-right: auto; /* centered */
   font-size: 30px;
   font-weight: bolder;
-  color: #252627;
+  color: #F2EFE9;
   border: 2px solid;
   border-radius: 16px;
   width: 34px;
