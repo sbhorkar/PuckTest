@@ -22,7 +22,8 @@
       // now get the history - these could take a while
       // so we do it separately.
       Puck.eval("steps", function(d) {
-        elements.steps.setData(d);
+        console.log("d:" + d);
+        elements.steps.setValue(d.steps);
       });
     });
   }
