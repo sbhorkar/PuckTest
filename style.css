@@ -130,9 +130,9 @@ body {
   background-color: #242526;
   overflow: auto;
 }
-.td_modal {
-  background-color: #242526;
-  border: 2px solid #242526;
+.td_modal { /* for the 'click to connect' in the beginning */
+  background-color: #F2EFE9;
+  border: 2px solid #FFC4C4;
   cursor: pointer;
   user-select: none;
 }
