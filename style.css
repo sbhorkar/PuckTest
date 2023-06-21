@@ -131,12 +131,12 @@ body {
   background-color: #242526;
   overflow: auto;
 }
-.td_modal { /* for the 'click to connect' in the beginning */
+.td_modal { /* for the 'click to connect' box */
   background-color: #F2EFE9;
   border: 2px solid #FFC4C4;
   cursor: pointer;
   user-select: none;
-  font-color: #FFC4C4;
+  color: #FFC4C4;
 }
 .td_modal span {
   left: 50%; top: 50%;
