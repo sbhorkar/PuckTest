@@ -6,7 +6,7 @@ body {
   /*border: 2px solid #555;*/
   color: #F2EFE9; /* changed nothing */
   font: 12px sans-serif;
-  background-color: #242526; /* changed nothing */
+  background-color: #FFC4C4; /* changed nothing */
 }
 .td span {
   color: #F2EFE9;
@@ -102,6 +102,7 @@ body {
 
 .td_gauge {
   text-align: center;
+  text-color: #FFC4C4;
 }
 .td_gauge canvas {
   width: 100%;
@@ -111,7 +112,7 @@ body {
   position: absolute;
   left: 0px; right: 0px; top: 50%;
   font-size: 40px;
-  color: #242526;
+  color: #FFC4C4;
 }
 .td_graph {
   text-align: center;
@@ -135,6 +136,7 @@ body {
   border: 2px solid #FFC4C4;
   cursor: pointer;
   user-select: none;
+  font-color: #FFC4C4;
 }
 .td_modal span {
   left: 50%; top: 50%;
