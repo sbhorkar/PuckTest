@@ -6,15 +6,15 @@ body {
   /*border: 2px solid #555;*/
   color: #F2EFE9;
   font: 12px sans-serif;
-  background-color: #F6C4C4;
+  background-color: #F2EFE9;
 }
 .td span {
-  color: #F6C4C4;
+  color: #F2EFE9;
   position: absolute; left: 8px; top: 8px;
 }
 
 .td_scrollable::-webkit-scrollbar-track {
-	background-color: #F6C4C4;
+	background-color: #F2EFE9;
 }
 
 .td_scrollable::-webkit-scrollbar {
@@ -24,7 +24,7 @@ body {
 
 .td_scrollable::-webkit-scrollbar-thumb {
 	border-radius: 10px;
-	background-color: #F6C4C4;
+	background-color: #F2EFE9;
 }
 
 .td_label {
@@ -52,9 +52,9 @@ body {
   cursor: pointer;
   user-select: none;
 }
-.td_btn_a:hover { background-color: #26567E; }
-.td_btn[pressed="1"] .td_btn_a { color: #26567E; }
-.td_btn[pressed="1"] .td_btn_a:hover { background-color: #26567E; }
+.td_btn_a:hover { background-color: #F2EFE9; }
+.td_btn[pressed="1"] .td_btn_a { color: #F2EFE9; }
+.td_btn[pressed="1"] .td_btn_a:hover { background-color: #F2EFE9; }
 .td_toggle_a {
   margin-top: 20px;
   margin-left: auto; margin-right: auto; /* centered */
@@ -64,11 +64,11 @@ body {
   height: 28px;
 }
 .td_toggle_a:hover {
-  background-color: #26567E;
+  background-color: #F2EFE9;
 }
 .td_toggle_b {
-  background-color: #252627;
-  border: 2px solid #252627;
+  background-color: #F2EFE9;
+  border: 2px solid #F2EFE9;
   border-radius: 8px;
   width: 16px;
   height: 16px;
@@ -86,18 +86,18 @@ body {
 .td_val_a {
   margin-top: 20px;
   font-size: 20px;
-  color: #26567E;
+  color: #F2EFE9;
 }
 .td_val_b {
   margin-left: 10px;
   margin-right: 10px;
   font-size: 20px;
-  color: #26567E;
+  color: #F2EFE9;
   cursor: pointer;
   user-select: none;
 }
 .td_val_b:hover {
-  color:#252627;
+  color:#F2EFE9;
 }
 
 .td_gauge {
@@ -111,7 +111,7 @@ body {
   position: absolute;
   left: 0px; right: 0px; top: 50%;
   font-size: 40px;
-  color: #26567E;
+  color: #F2EFE9;
 }
 .td_graph {
   text-align: center;
@@ -127,11 +127,11 @@ body {
   right: 4px;
   bottom: 4px;
   padding: 4px;
-  background-color: #252627;
+  background-color: #F2EFE9;
   overflow: auto;
 }
 .td_modal {
-  background-color: #252627;
+  background-color: #F2EFE9;
   border: 2px solid #F2EFE9;
   cursor: pointer;
   user-select: none;
