@@ -16,11 +16,10 @@ document.getElementById('logButton').addEventListener('click', function() {
             console.log("Connection error: " + err);
             return;
         }
-
+        console.log('started logging');
         let code = `
             let logInterval;
             function startLogging() {
-                console.log('started logging');
                 logInterval = setInterval(function() {
                     let temp = E.getTemperature();
                     let logEntry = "Temperature: " + temp.toFixed(2) + "°C at " + Date().toString() + "\\n";
@@ -44,7 +43,7 @@ document.getElementById('logButton').addEventListener('click', function() {
                 Puck.eval("require('Storage').read('tempLog.txt')", function(data) {
                     console.log(data);
                 });
-            }, 5 * 60 * 1000); // 5 minutes in milliseconds
+            }, 1 * 60 * 1000); // 5 minutes in milliseconds
 
             btn.innerText = 'Stop Logging';
             console.log('logging stopped');
