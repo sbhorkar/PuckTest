@@ -8,6 +8,19 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
+   function getStepsAndTemp() {
+    // The `Puck.accelOn()` function must be called before reading step count.
+    // It initializes the step counter feature of the accelerometer.
+    Puck.eval("steps", function(d) {
+       console.log("d:" + d);
+       elements.steps.setValue(d);
+    });
+
+    Puck.eval('E.getTemperature()', function(temp) {
+        document.getElementById('temperature').innerText = "Temperature: " + temp.toFixed(2) + "°C";
+    });
+   }
+   
    function connectDevice() {
     // connect, and ask for the battery percentage
     Puck.eval("{bat:Puck.getBatteryPercentage()}", function(d,err) {
@@ -21,11 +34,8 @@
      elements.bat.setValue(d.bat);
      // now get the history - these could take a while
      // so we do it separately.
-     setInterval(function() {
-      Puck.eval("steps", function(d) {
-       console.log("d:" + d);
-       elements.steps.setValue(d);
-      }, 5000);
+     
+     setInterval(getStepsAndTemp, 5000);
       });
      });
    }
@@ -34,6 +44,7 @@
     heading : TD.label({x:10,y:10,width:190,height:50,label:"My Dashboard"}),
     bat : TD.gauge({x:10,y:70,width:190,height:220,label:"Battery Level",value:0,min:0,max:100}),
     steps : TD.gauge({x:210,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:1000}),
+    temperature : TD.gauge({x:410,y:70,width:190,height:220,label:"Temperature",value:0,min:0,max:50}),
     redled : TD.toggle({x:210,y:10,width:200,height:50,label:"Red LED",value:0,onchange:function(el,v) {
       Puck.write("LED1.write("+v+");\n");
     }}),
