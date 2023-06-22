@@ -20,6 +20,7 @@ document.getElementById('logButton').addEventListener('click', function() {
         let code = `
             let logInterval;
             function startLogging() {
+                console.log('started logging');
                 logInterval = setInterval(function() {
                     let temp = E.getTemperature();
                     let logEntry = "Temperature: " + temp.toFixed(2) + "°C at " + Date().toString() + "\\n";
