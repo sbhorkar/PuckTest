@@ -17,7 +17,7 @@
     });
 
     Puck.eval('E.getTemperature()', function(temp) {
-        document.getElementById('temperature').innerText = "Temperature: " + temp.toFixed(2) + "°C";
+        elements.temperature.setValue(temp.toFixed(2));
     });
    }
    
