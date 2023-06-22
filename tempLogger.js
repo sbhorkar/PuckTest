@@ -25,7 +25,7 @@ document.getElementById('logButton').addEventListener('click', function() {
                     let logEntry = "Temperature: " + temp.toFixed(2) + "°C at " + Date().toString() + "\\n";
                     let currentData = require("Storage").read('tempLog.txt');
                     require("Storage").write('tempLog.txt', currentData + logEntry);
-                }, 5 * 60 * 1000); // 5 minutes in milliseconds
+                }, 1 * 60 * 1000); // 5 minutes in milliseconds
             }
 
             function stopLogging() {
@@ -46,6 +46,7 @@ document.getElementById('logButton').addEventListener('click', function() {
             }, 5 * 60 * 1000); // 5 minutes in milliseconds
 
             btn.innerText = 'Stop Logging';
+            console.log('logging stopped');
         });
     });
 });
