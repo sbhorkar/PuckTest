@@ -16,7 +16,7 @@
        elements.steps.setValue(d);
     });
 
-    Puck.eval('E.getTemperature()', function(temp) {
+    Puck.eval('Puck.getTemperature()', function(temp) {
         tempInF = (temp.toFixed(2) * (9/5)) + 32;
         elements.temperature.setValue(tempInF);
     });
