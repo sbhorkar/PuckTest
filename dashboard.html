@@ -45,10 +45,10 @@
     bat : TD.gauge({x:10,y:70,width:190,height:220,label:"Battery Level",value:0,min:0,max:100}),
     steps : TD.gauge({x:210,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:1000}),
     temperature : TD.gauge({x:410,y:70,width:190,height:220,label:"Temperature",value:0,min:0,max:100}),
-    redled : TD.toggle({x:210,y:10,width:200,height:50,label:"Red LED",value:0,onchange:function(el,v) {
+    redled : TD.toggle({x:210,y:10,width:190,height:50,label:"Red LED",value:0,onchange:function(el,v) {
       Puck.write("LED1.write("+v+");\n");
     }}),
-    flash : TD.button({x:420,y:10,width:190,height:50,label:"Flash!",onchange:function(){
+    flash : TD.button({x:410,y:10,width:190,height:50,label:"Flash!",onchange:function(){
       Puck.write("digitalPulse(LED3,1,500);\n");
     }}),
     modal : TD.modal({x:10,y:10,width:600,height:430,label:"Click to connect",onchange:connectDevice})
