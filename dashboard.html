@@ -24,7 +24,7 @@
    
    function connectDevice() {
     // connect, and ask for the battery percentage
-    Puck.eval("{bat:Puck.getBatteryPercentage()}", function(d,err) {
+    Puck.eval("{bat:E.getBattery()}", function(d,err) {
      if (!d) {
       alert("Web Bluetooth connection failed!\n"+(err||""));
       return;
