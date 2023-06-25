@@ -8,12 +8,17 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   function getStepsAndTemp() {
+   function getActandTemp() {
     // The `Puck.accelOn()` function must be called before reading step count.
     // It initializes the step counter feature of the accelerometer.
     Puck.eval("steps", function(d) {
        console.log("d:" + d);
        elements.steps.setValue(d);
+    });
+
+    Puck.eval("active_min", function(d) {
+       console.log("d:" + d);
+       elements.activity.setValue(d);
     });
 
     Puck.eval('Puck.getTemperature()', function(temp) {
@@ -36,7 +41,7 @@
      // now get the history - these could take a while
      // so we do it separately.
      
-     setInterval(getStepsAndTemp, 1000);
+     setInterval(getActandTemp, 1000);
       });
    }
    // Set up the controls we see on the screen    
@@ -45,6 +50,7 @@
     bat : TD.gauge({x:10,y:70,width:190,height:220,label:"Battery Level",value:0,min:0,max:100}),
     steps : TD.gauge({x:210,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:1000}),
     temperature : TD.gauge({x:410,y:70,width:190,height:220,label:"Temperature",value:0,min:0,max:100}),
+    activity : TD.gauge({x:610,y:70,width:190,height:220,label:"Active Minutes",value:0,min:0,max:1440}),
     redled : TD.toggle({x:210,y:10,width:190,height:50,label:"Red LED",value:0,onchange:function(el,v) {
       Puck.write("LED1.write("+v+");\n");
     }}),
