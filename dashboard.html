@@ -8,8 +8,10 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   var fileContent = require("Storage").read("steps_log");
-   var records = fileContent.split("\n");
+   var records = require("Storage").read("steps_log").split("\n");
+   if (records) {
+    console.log("yay");
+   }
 
    var lastRecord;
    for (var i = records.length - 1; i >= 0; i--) {
@@ -36,10 +38,10 @@
        elements.activity.setValue(d);
     });
 
-    // Puck.eval('Puck.getTemperature()', function(temp) {
-    //     tempInF = (temp.toFixed(2) * (9/5)) + 32;
-    //     elements.temperature.setValue(tempInF);
-    // });
+    Puck.eval('Puck.getTemperature()', function(temp) {
+        tempInF = (temp.toFixed(2) * (9/5)) + 32;
+        elements.temperature.setValue(tempInF);
+    });
     
     Puck.eval("daily_average", function(avg) {
         elements.daily_avg.setValue(avg);
