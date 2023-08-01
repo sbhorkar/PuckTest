@@ -8,6 +8,23 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
+   var fileContent = require("Storage").read("steps_log");
+   var records = fileContent.split("\n");
+
+   var lastRecord;
+   for (var i = records.length - 1; i >= 0; i--) {
+       if (records[i].trim() !== '') {
+           lastRecord = JSON.parse(records[i]);
+           break;
+       }
+   }
+   
+   if (lastRecord) {
+       var last_steps_taken = lastRecord.steps;
+   } else {
+       console.log("No valid records found");
+   }
+   
    function getActandTemp() {
     // The `Puck.accelOn()` function must be called before reading step count.
     // It initializes the step counter feature of the accelerometer.
@@ -19,13 +36,19 @@
        elements.activity.setValue(d);
     });
 
-    Puck.eval('Puck.getTemperature()', function(temp) {
-        tempInF = (temp.toFixed(2) * (9/5)) + 32;
-        elements.temperature.setValue(tempInF);
-    });
+    // Puck.eval('Puck.getTemperature()', function(temp) {
+    //     tempInF = (temp.toFixed(2) * (9/5)) + 32;
+    //     elements.temperature.setValue(tempInF);
+    // });
     
     Puck.eval("daily_average", function(avg) {
         elements.daily_avg.setValue(avg);
+    });
+   }
+
+   function getSteps() {
+    Puck.eval("last_steps_taken", function(d) {
+       elements.daily_steps.setData(d);
     });
    }
    
@@ -44,6 +67,7 @@
      // so we do it separately.
      
      setInterval(getActandTemp, 1000);
+     setInterval(getSteps, 15000*60);
       });
    }
    // Set up the controls we see on the screen    
@@ -51,6 +75,7 @@
     heading : TD.label({x:10,y:10,width:390,height:50,label:"PetBit Dashboard 🐾"}),
     bat : TD.value({x:10,y:300,width:190,height:50,label:"Battery %",value:0}),
     steps : TD.gauge({x:10,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:10000}),
+    daily_steps : TD.graph({x:10,y:400,width:400,height:180,label:"Daily Steps"}),
     temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     activity : TD.gauge({x:210,y:70,width:190,height:220,label:"Active Minutes",value:0,min:0,max:1440}),
     daily_avg : TD.gauge({x:410,y:70,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:10000}),
