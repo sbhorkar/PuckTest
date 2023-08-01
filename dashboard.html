@@ -8,24 +8,16 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   // var records = require("Storage").read("steps_log").split("\n");
-   // if (records) {
-   //  console.log("yay");
-   // }
-
-   // var lastRecord;
-   // for (var i = records.length - 1; i >= 0; i--) {
-   //     if (records[i].trim() !== '') {
-   //         lastRecord = JSON.parse(records[i]);
-   //         break;
-   //     }
-   // }
+   let file = require("Storage").open("steps_log", "r"); // Replace 'your_file_name' with your actual file name
+   let line;
+   let data = [];
    
-   // if (lastRecord) {
-   //     var last_steps_taken = lastRecord.steps;
-   // } else {
-   //     console.log("No valid records found");
-   // }
+   while ((line = file.readLine()) !== undefined) {
+     let jsonObject = JSON.parse(line);
+     data.push(jsonObject);
+   }
+   
+   console.log(data);
    
    function getActandTemp() {
     Puck.eval("steps", function(d) {
