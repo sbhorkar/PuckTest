@@ -21,9 +21,8 @@
        elements.activity.setValue(d);
     });
 
-    Puck.eval('Puck.getTemperature()', function(temp) {
-        tempInF = (temp.toFixed(2) * (9/5)) + 32;
-        elements.temperature.setValue(tempInF);
+    Puck.eval("daily_average", function(avg) {
+        elements.daily_avg.setValue(avg);
     });
    }
    
@@ -48,15 +47,10 @@
    var elements = {
     heading : TD.label({x:10,y:10,width:390,height:50,label:"PetBit Dashboard 🐾"}),
     bat : TD.value({x:10,y:300,width:190,height:50,label:"Battery %",value:0}),
-    steps : TD.gauge({x:10,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:1000}),
+    steps : TD.gauge({x:10,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:10000}),
     temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     activity : TD.gauge({x:210,y:70,width:190,height:220,label:"Active Minutes",value:0,min:0,max:1440}),
-    /*redled : TD.toggle({x:210,y:10,width:190,height:50,label:"Red LED",value:0,onchange:function(el,v) {
-      Puck.write("LED1.write("+v+");\n");
-    }}),
-    flash : TD.button({x:410,y:10,width:190,height:50,label:"Flash!",onchange:function(){
-      Puck.write("digitalPulse(LED3,1,500);\n");
-    }}),*/
+    daily_avg : TD.gauge({x:410,y:70,width:190,height:220,label:"Daily Average steps",value:0,min:0,max:10000}),
     modal : TD.modal({x:10,y:10,width:400,height:350,label:"Click to connect",onchange:connectDevice})
   }
    for (var i in elements)
