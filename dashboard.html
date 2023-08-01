@@ -54,7 +54,7 @@
    
    function connectDevice() {
     // connect, and ask for the battery percentage
-    Puck.eval("{bat:E.getBattery()}", function(d,err) {
+    Puck.eval("{bat:E.getBattery()}", function(d, err) {
      if (!d) {
       alert("Web Bluetooth connection failed!\n"+(err||""));
       return;
@@ -65,9 +65,9 @@
      elements.bat.setValue(d.bat);
      // now get the history - these could take a while
      // so we do it separately.
-     
+
+     getSteps();
      setInterval(getActandTemp, 1000);
-     setInterval(getSteps, 15000*60);
       });
    }
    // Set up the controls we see on the screen    
