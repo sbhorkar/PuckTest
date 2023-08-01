@@ -28,8 +28,6 @@
    // }
    
    function getActandTemp() {
-    // The `Puck.accelOn()` function must be called before reading step count.
-    // It initializes the step counter feature of the accelerometer.
     Puck.eval("steps", function(d) {
        elements.steps.setValue(d);
     });
@@ -63,10 +61,7 @@
      }
      // remove the 'connect' window
      elements.modal.remove();
-     // update the controls with the values we received
      elements.bat.setValue(d.bat);
-     // now get the history - these could take a while
-     // so we do it separately.
 
      // getSteps();
      setInterval(getActandTemp, 1000);
