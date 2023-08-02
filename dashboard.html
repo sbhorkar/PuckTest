@@ -27,9 +27,9 @@
         elements.daily_avg.setValue(avg);
     });
 
-    Puck.eval("steps_array", function(d) {
-       elements.daily_steps.setData(d);
-    });
+    Puck.eval("steps_array", function(daily_s) {
+        elements.daily_steps.setData(daily_s);
+      });
    }
    
    function connectDevice() {
@@ -52,7 +52,7 @@
     heading : TD.label({x:10,y:10,width:390,height:50,label:"PetBit Dashboard 🐾"}),
     bat : TD.value({x:10,y:300,width:190,height:50,label:"Battery %",value:0}),
     steps : TD.gauge({x:10,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:10000}),
-    // daily_steps : TD.graph({x:10,y:400,width:400,height:180,label:"Daily Steps"}),
+    daily_steps : TD.graph({x:10,y:400,width:400,height:180,label:"Daily Steps"}),
     temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     activity : TD.gauge({x:210,y:70,width:190,height:220,label:"Active Minutes",value:0,min:0,max:1440}),
     daily_avg : TD.gauge({x:410,y:70,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:10000}),
