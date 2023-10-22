@@ -1,3 +1,5 @@
+// This code is uploaded to Espruino IDE, so it can communicate it to the device directly.
+
 // Initialize variables
 var steps = 0;   // Counter for steps
 const range = 60*1000;  // Range for each step interval in milliseconds
