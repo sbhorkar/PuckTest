@@ -1,0 +1,154 @@
+// Initialize variables
+var steps = 0;   // Counter for steps
+const range = 60*1000;  // Range for each step interval in milliseconds
+let date_now = Date.now();  // Current timestamp
+let prev_min_stamp = Math.round(date_now / range);  // Previous minute timestamp
+let curr_min_stamp = 0;  // Current minute timestamp
+let curr_min_steps = 0;  // Steps in the current minute
+let stop_counting = false;  // Flag for stopping the step count
+let act_threshold = 5;  // Active threshold for steps
+let active_min = 0;  // Active minutes count
+let myDate = new Date(date_now);  // Current date object
+let prev_day; 
+let day = 1;
+let seven_day_steps = [0, 0, 0, 0, 0, 0, 0];
+let daily_average = 0;
+let steps_data = [];
+let steps_array;
+
+// Set timezone and DST
+E.setTimeZone(-7);
+E.setDST();
+prev_day = myDate.getDate();
+console.log(myDate);
+
+// Open log file in write mode
+let log_file=require("Storage").open("steps_log", "w");
+
+function averageDaily() {
+  let total_steps = 0;
+  let denominator = seven_day_steps.length;
+  
+  if (day < 7) 
+      denominator = day;
+
+  seven_day_steps.forEach(function a(value) { total_steps +=value;});
+  daily_average = Math.round(total_steps/denominator, 2);
+  console.log("Daily Average:" + daily_average);
+}
+
+function startLog() {
+  writeLog();
+  console.log("Start timer");
+  // Write log every 15 minutes
+  setInterval(writeLog, 15000*60);
+}
+
+function cleanOldLog() {
+    var locateFile = "steps_log_daily_" + (day - 1);
+    console.log("Looking for :" + locateFile);
+    var regex = new RegExp(locateFile);
+    var fileList = require("Storage").list(/steps_log_daily_/);
+      ste
+    var filteredList = fileList.filter(function(fileName) {
+      console.log("Testing "+ fileName + " Result:" +  regex.test(fileName));
+      
+      return regex.test(fileName);
+    });
+  
+    console.log("File name to remove:" + regex);
+    console.log("Filtered List:" + filteredList);
+    require("Storage").list(filteredList[0]);
+}
+// Function to write logs
+function writeLog() {
+  date_now = Date.now();  // Update current timestamp
+  myDate = new Date(date_now);  // Update current date object
+  console.log(myDate.toString());
+  curr_min_stamp = Math.round(date_now/ range);  // Update current minute timestamp
+  
+  // Reset daily steps when the day changes
+  if (myDate.getDate() != prev_day) {
+    console.log("today:"+ myDate.getDate() + " prev:"+ prev_day);
+    day++;
+    
+    //if (day > 1) // need to change to 7 once testing is done.
+      //cleanOldLog();
+    
+    steps = 0;
+    active_min = 0;
+    prev_day = myDate.getDate();
+    
+    // remove oldest steps if first seven days have passed
+    if (day > 7) {
+        seven_day_steps.shift(); 
+        seven_day_steps.push(0);
+    }
+    
+    // New day, new steps log
+    log_file.erase();
+    //require("Storage").compact();
+    log_file = require("Storage").open("steps_log", "w");
+  }
+  
+  // Log object
+  let log_obj = { 
+      "timestamp": curr_min_stamp,  // Current minute timestamp
+      "steps": steps,  // Total steps
+      "active_min": active_min,  // Active minutes
+    };
+  
+  // Write log object to file and storage
+  
+     steps_data.push(log_obj);
+     steps_array = steps_data.map(log_obj => log_obj.steps);
+  
+     log_file.write(JSON.stringify(log_obj));
+    require("Storage").write("steps_log_daily_"+ day,JSON.stringify(log_obj) + "\n");
+  
+  // Log the action to console
+  console.log("wrote log " + JSON.stringify(log_obj) + " at " + curr_min_stamp + " "       + myDate.getDate() + "/" + (myDate.getMonth()+1));
+}
+  
+// Function to handle active minutes
+function activeMins() {
+  steps++;  // Increment step count
+  
+  if (day <=7)
+    seven_day_steps[day-1] = steps;
+  else 
+    seven_day_steps[6] = steps;
+  
+  averageDaily();
+  curr_min_stamp = Math.round(Date.now() / range);  // Update current minute timestamp
+  
+  // Handle step count for active minutes
+  if (prev_min_stamp == curr_min_stamp) {
+    if (!stop_counting)
+    {
+      curr_min_steps++;  // Increment current minute steps
+      if (curr_min_steps > act_threshold)
+      {
+        active_min++;  // Increment active minutes
+        stop_counting = true;  // Stop counting steps
+      }
+    }
+  } else {
+    prev_min_stamp = curr_min_stamp;  // Update previous minute timestamp
+    stop_counting = false;  // Start counting steps
+    curr_min_steps = 0;  // Reset current minute steps
+  }
+}
+
+writeLog();
+// Start the logging at the nearest 15 minutes boundary
+console.log("Start logging in "+ (15 - (myDate.getMinutes()%15)) + " minutes");
+setTimeout(startLog, ((15 - (myDate.getMinutes()%15)))*1000*60);
+
+// Start step counter
+require("puckjsv2-accel-steps").on();
+Puck.on('accel',function(a) {
+  activeMins();  // Handle active minutes on step
+});
+
+
