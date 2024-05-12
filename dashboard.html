@@ -57,7 +57,7 @@
 
       Puck.eval("day", function(d) {
          day = d;
-         console.log(day);
+        // console.log(day);
       });
   
       Puck.eval("active_min", function(d) {
@@ -79,19 +79,19 @@
 
     Puck.eval("seven_day_steps", function(daily_s) {
          elements.daily_steps.setData(daily_s);
-         console.log(formatWeekData(daily_s, day-1));
+        // console.log(formatWeekData(daily_s, day-1));
          elements.daily_label.setValue(formatWeekData(daily_s, day-1));
        });
 
      Puck.eval("seven_day_active_mins", function(daily_s) {
          elements.daily_active_mins.setData(daily_s);
-         console.log(formatWeekData(daily_s, day-1));
+         //console.log(formatWeekData(daily_s, day-1));
          elements.daily_mins_label.setValue(formatWeekData(daily_s, day-1));
        });
 
      Puck.eval("hourly_steps", function(daily_s) {
          elements.hourly_steps.setData(daily_s);
-        console.log(arrayToHoursLabel(daily_s));
+        //console.log(arrayToHoursLabel(daily_s));
          elements.hourly_label.setValue(arrayToHoursLabel(daily_s));
        });
 
