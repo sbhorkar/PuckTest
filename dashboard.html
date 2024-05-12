@@ -35,6 +35,11 @@
      Puck.eval("seven_day_active_mins", function(daily_s) {
          elements.daily_active_mins.setData(daily_s);
        });
+
+     Puck.eval("hourly_steps", function(daily_s) {
+         elements.hourly_steps.setData(daily_s);
+       });
+
    }
    
    function connectDevice() {
@@ -57,7 +62,8 @@
     heading : TD.label({x:10,y:10,width:390,height:50,label:"PetBit Dashboard 🐾"}),
     bat : TD.value({x:10,y:300,width:190,height:50,label:"Battery %",value:0}),
     steps : TD.gauge({x:10,y:70,width:190,height:220,label:"Steps",value:0,min:0,max:10000}),
-    daily_steps : TD.graph({x:10,y:400,width:400,height:180,label:"Daily Steps", gridy:daily_steps_gridy, gridx:7}),
+    hourly_steps : TD.graph({x:10,y:400,width:400,height:180,label:"Hourly Steps", gridy:50, gridx:24}), 
+    daily_steps : TD.graph({x:500,y:400,width:400,height:180,label:"Daily Steps", gridy:daily_steps_gridy, gridx:7}),
     daily_active_mins : TD.graph({x:10,y:600,width:400,height:180,label:"Daily Active Minutes", gridy:60, gridx:7}),
     temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     activity : TD.gauge({x:210,y:70,width:190,height:220,label:"Active Minutes",value:0,min:0,max:1440}),
