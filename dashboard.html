@@ -15,10 +15,10 @@
        elements.activity.setValue(d);
     });
 
-    Puck.eval('Puck.getTemperature()', function(temp) {
-        tempInF = (temp.toFixed(2) * (9/5)) + 32;
-        elements.temperature.setValue(tempInF);
-    });
+    //Puck.eval('Puck.getTemperature()', function(temp) {
+    //    tempInF = (temp.toFixed(2) * (9/5)) + 32;
+    //    elements.temperature.setValue(tempInF);
+    //});
     
     Puck.eval("steps", function(d) {
        elements.steps.setValue(d);
