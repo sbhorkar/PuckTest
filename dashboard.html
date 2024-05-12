@@ -66,9 +66,7 @@
          elements.bat.setValue(d.bat);
      });
    }
-   function getActandTemp() {
-
-      
+   function getActivity() {
       Puck.eval("active_min", function(d) {
          elements.activity.setValue(d);
       });
@@ -119,7 +117,7 @@
      
           updateDay();
           // getSteps();
-          setInterval(getActandTemp, 5000);
+          setInterval(getActivity, 2000);
           setInterval(updateDay, 1000*60*60*24);
           setInterval(updateBat, 1000*60);
       });
