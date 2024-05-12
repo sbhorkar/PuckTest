@@ -19,13 +19,13 @@
            if (value !== 0) {
                // Apply AM/PM formatting based on the index
                if (index <= 12) {
-                   return index === 0 ? `12am:${value}` : `${index}am:${value}`; // Special handling for midnight as 12 AM
+                   return index === 0 ? `12 am:${value}` : `${index} am:${value}`; // Special handling for midnight as 12 AM
                } else {
-                   return `${index - 12}pm:${value}`;
+                   return `${index - 12} pm:${value}`;
                }
            }
            return null;
-       }).filter(item => item !== null).join(', ');
+       }).filter(item => item !== null).join('\n');
    }   
    
    function getActandTemp() {
