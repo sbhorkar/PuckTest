@@ -8,7 +8,7 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   daily_steps_gridy = 200;
+   daily_steps_gridy = 50;
    function getActandTemp() {
   
     Puck.eval("active_min", function(d) {
@@ -29,11 +29,8 @@
     });
 
     Puck.eval("seven_day_steps", function(daily_s) {
-        daily_steps_gridy = 500;
-        elements.daily_steps.gridy = 500;
          elements.daily_steps.setData(daily_s);
-       //document.body.appendChild(elements.daily_steps);
-      });
+       });
    }
    
    function connectDevice() {
