@@ -27,6 +27,31 @@
            return null;
        }).filter(item => item !== null).join(', ');
    }   
+
+   function formatWeekData(data, currentDayIndex) {
+       if (data.length !== 7) {
+           throw new Error('Array must contain exactly 7 elements.');
+       }
+   
+       const today = new Date();
+       const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+       let results = [];
+   
+       for (let index = 0; index <= currentDayIndex; index++) {
+           // Calculate the date for each entry
+           let dateOfEntry = new Date(today);
+           dateOfEntry.setDate(today.getDate() - (currentDayIndex - index));
+   
+           // Format the date as "MON-DD"
+           let month = months[dateOfEntry.getMonth()]; // Use the array to get the month abbreviation
+           let day = dateOfEntry.getDate();
+           let dateString = `${month}-${day.toString().padStart(2, '0')}`;
+   
+           results.push(`${dateString}: ${data[index]}`);
+       }
+   
+       return results.join(', ');
+   }
    
    function getActandTemp() {
 
@@ -54,11 +79,14 @@
 
     Puck.eval("seven_day_steps", function(daily_s) {
          elements.daily_steps.setData(daily_s);
-         
+         console.log(formatWeekData(daily_s, day));
+         elements.daily_label.setValue(formatWeekData(daily_s, day));
        });
 
      Puck.eval("seven_day_active_mins", function(daily_s) {
          elements.daily_active_mins.setData(daily_s);
+         console.log(formatWeekData(daily_s, day));
+         elements.daily_mins_label.setValue(formatWeekData(daily_s, day));
        });
 
      Puck.eval("hourly_steps", function(daily_s) {
