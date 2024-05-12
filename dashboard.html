@@ -79,13 +79,13 @@
 
     Puck.eval("seven_day_steps", function(daily_s) {
          elements.daily_steps.setData(daily_s);
-         console.log(formatWeekData(daily_s, day));
+         console.log(formatWeekData(daily_s, day-1));
          elements.daily_label.setValue(formatWeekData(daily_s, day));
        });
 
      Puck.eval("seven_day_active_mins", function(daily_s) {
          elements.daily_active_mins.setData(daily_s);
-         console.log(formatWeekData(daily_s, day));
+         console.log(formatWeekData(daily_s, day-1));
          elements.daily_mins_label.setValue(formatWeekData(daily_s, day));
        });
 
