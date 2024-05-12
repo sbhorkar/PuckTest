@@ -8,7 +8,7 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   daily_steps_gridy = 50;
+   daily_gridy = 50;
    function getActandTemp() {
   
     Puck.eval("active_min", function(d) {
@@ -66,11 +66,11 @@
     heading : TD.label({x:10,y:10,width:390,height:50,label:"PetBit Dashboard 🐾"}),
     steps : TD.gauge({x:10,y:70,width:190,height:220,label:"Today's Steps",value:0,min:0,max:10000}),
     activity : TD.gauge({x:210,y:70,width:190,height:220,label:"Today's Active Minutes",value:0,min:0,max:1440}),
-    daily_avg : TD.gauge({x:410,y:70,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:10000}),
+    daily_avg : TD.gauge({x:410,y:70,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
     bat : TD.gauge({x:610,y:70,width:190,height:220,label:"Battery %",value:0, max:100}),
-    hourly_steps : TD.graph({x:10,y:300,width:400,height:300,label:"Hourly Steps", gridy:10, gridx:24}), 
-    daily_steps : TD.graph({x:410,y:300,width:400,height:300,label:"Daily Steps", gridy:10, gridx:7}),
-    daily_active_mins : TD.graph({x:10,y:610,width:400,height:180,label:"Daily Active Minutes", gridy:10, gridx:7}),
+    hourly_steps : TD.graph({x:10,y:300,width:400,height:300,label:"Hourly Steps", gridy:daily_gridy, gridx:24, labelx: { return x.toFixed(1); }}), 
+    daily_steps : TD.graph({x:410,y:300,width:400,height:300,label:"Daily Steps", gridy:daily_gridy, gridx:7, labelx: { return x.toFixed(1); }}),
+    daily_active_mins : TD.graph({x:810,y:610,width:400,height:300,label:"Daily Active Minutes", gridy:daily_gridy, gridx:7, labelx: { return x.toFixed(1); }}),
     //temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:connectDevice})
   }
