@@ -30,6 +30,7 @@
 
     Puck.eval("seven_day_steps", function(daily_s) {
         daily_steps_gridy = 500;
+        elements.daily_steps.update({gridy: daily_steps_gridy});
         elements.daily_steps.setData(daily_s);
       });
    }
