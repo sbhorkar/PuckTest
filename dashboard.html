@@ -9,6 +9,17 @@
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
    daily_gridy = 50;
+
+   function arrayToLabel(data) {
+       if (data.length !== 24) {
+           throw new Error('Array must contain exactly 24 elements.');
+       }
+   
+       // Filter out zero values and map to "index:value" format
+       return data.map((value, index) => {
+           return value !== 0 ? `${index}:${value}` : null;
+       }).filter(item => item !== null).join(', ');
+   }   
    function getActandTemp() {
   
     Puck.eval("active_min", function(d) {
@@ -38,7 +49,8 @@
 
      Puck.eval("hourly_steps", function(daily_s) {
          elements.hourly_steps.setData(daily_s);
-         elements.hourly_lable.setValue(daily_s);
+        console.log(arrayToLabel(daily_s));
+         elements.hourly_lable.setValue(arrayToLabel(daily_s));
        });
 
      Puck.eval("{bat:E.getBattery()}", function(d, err) {
