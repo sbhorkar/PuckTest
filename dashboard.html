@@ -9,6 +9,7 @@
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
    daily_gridy = 50;
+   day = 0;
 
    function arrayToHoursLabel(data) {
        if (data.length !== 24) {
@@ -53,13 +54,16 @@
        return results.join(', ');
    }
    
+   function (updateDay() {
+    Puck.eval("day", function(d) {
+         day = d;
+         console.log('Day' + day);
+      });
+   } 
+   
    function getActandTemp() {
 
-      Puck.eval("day", function(d) {
-         day = d;
-        // console.log(day);
-      });
-  
+      
       Puck.eval("active_min", function(d) {
          elements.activity.setValue(d);
       });
@@ -104,16 +108,18 @@
    function connectDevice() {
     // connect, and ask for the battery percentage
     Puck.eval("{bat:E.getBattery()}", function(d, err) {
-     if (!d) {
-      alert("Web Bluetooth connection failed!\n"+(err||""));
-      return;
-     }
-     // remove the 'connect' window
-     elements.modal.remove();
-     elements.bat.setValue(d.bat);
-
-     // getSteps();
-     setInterval(getActandTemp, 1000);
+          if (!d) {
+           alert("Web Bluetooth connection failed!\n"+(err||""));
+           return;
+          }
+          // remove the 'connect' window
+          elements.modal.remove();
+          elements.bat.setValue(d.bat);
+     
+          updateDay();
+          // getSteps();
+          setInterval(getActandTemp, 5000);
+          setInterval(updateDay, 1000*60*60*24);
       });
    }
    // Set up the controls we see on the screen    
