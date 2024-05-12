@@ -10,7 +10,7 @@
   <script>
    daily_gridy = 50;
 
-   function arrayToLabel(data) {
+   function arrayToHoursLabel(data) {
        if (data.length !== 24) {
         throw new Error('Array must contain exactly 24 elements.');
        }
@@ -29,10 +29,15 @@
    }   
    
    function getActandTemp() {
+
+      Puck.eval("day", function(d) {
+         day = d;
+         console.log(day);
+      } 
   
-    Puck.eval("active_min", function(d) {
-       elements.activity.setValue(d);
-    });
+      Puck.eval("active_min", function(d) {
+         elements.activity.setValue(d);
+      });
 
     //Puck.eval('Puck.getTemperature()', function(temp) {
     //    tempInF = (temp.toFixed(2) * (9/5)) + 32;
@@ -49,6 +54,7 @@
 
     Puck.eval("seven_day_steps", function(daily_s) {
          elements.daily_steps.setData(daily_s);
+         
        });
 
      Puck.eval("seven_day_active_mins", function(daily_s) {
@@ -57,8 +63,8 @@
 
      Puck.eval("hourly_steps", function(daily_s) {
          elements.hourly_steps.setData(daily_s);
-        console.log(arrayToLabel(daily_s));
-         elements.hourly_lable.setValue(arrayToLabel(daily_s));
+        console.log(arrayToHoursLabel(daily_s));
+         elements.hourly_label.setValue(arrayToHoursLabel(daily_s));
        });
 
      Puck.eval("{bat:E.getBattery()}", function(d, err) {
@@ -90,9 +96,11 @@
     daily_avg : TD.gauge({x:410,y:70,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
     bat : TD.gauge({x:610,y:70,width:190,height:220,label:"Battery %",value:0, max:100}),
     hourly_steps : TD.graph({x:10,y:300,width:400,height:300,label:"Hourly Steps", gridy:daily_gridy}), 
-    hourly_lable: TD.value({x:10,y:600,width:400,height:50,label:"Hourly Steps", value:""}),
-    daily_steps : TD.graph({x:10,y:650,width:400,height:300,label:"Daily Steps", gridy:daily_gridy}),
-    daily_active_mins : TD.graph({x:410,y:650,width:400,height:300,label:"Daily Active Minutes", gridy:daily_gridy}),
+    hourly_label: TD.value({x:10,y:600,width:400,height:50,label:"Hourly Steps", value:""}),
+    daily_steps : TD.graph({x:410,y:300,width:400,height:300,label:"Daily Steps", gridy:daily_gridy}),
+    daily_label: TD.value({x:410,y:600,width:400,height:50,label:"Daily Steps", value:"" }),
+    daily_active_mins : TD.graph({x:810,y:300,width:400,height:300,label:"Daily Active Minutes", gridy:daily_gridy}),
+    daily_mins_label: TD.value({x:810,y:600,width:400,height:50,label:"Daily Active Minutes", value:" "}),
     //temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:connectDevice})
   }
