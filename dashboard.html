@@ -128,12 +128,14 @@
    }
    // Set up the controls we see on the screen    
    var elements = {
+    modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:connectDevice}),
     heading : TD.label({x:10,y:10,width:390,height:50,label:"PetBit Dashboard 🐾"}),
+    bat : TD.value({x:410,y:10,width:100,height:50,label:"Battery %",value:0}),
+    connect_disconnect: TD.button({x:510,y:10,width:100,height:50,label:"Disconnect",onchange:Puck.close}),
     steps : TD.gauge({x:10,y:70,width:190,height:220,label:"Today's Steps",value:0,min:0,max:10000}),
     activity : TD.gauge({x:210,y:70,width:190,height:220,label:"Today's Active Minutes",value:0,min:0,max:1440}),
     daily_avg : TD.gauge({x:410,y:70,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
     daily_avg_mins : TD.gauge({x:610,y:70,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440}),
-    bat : TD.value({x:410,y:10,width:100,height:50,label:"Battery %",value:0}),
     hourly_steps : TD.graph({x:10,y:300,width:800,height:300,label:"Hourly Steps", gridy:daily_gridy}), 
     hourly_label: TD.value({x:10,y:600,width:800,height:50,label:"Hourly Steps", value:""}),
     daily_steps : TD.graph({x:10,y:650,width:400,height:300,label:"Daily Steps", gridy:daily_gridy}),
@@ -141,8 +143,6 @@
     daily_active_mins : TD.graph({x:410,y:650,width:400,height:300,label:"Daily Active Minutes", gridy:daily_gridy}),
     daily_mins_label: TD.value({x:410,y:950,width:400,height:50,label:"Daily Active Minutes", value:" "}),
     //temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
-    modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:connectDevice}),
-    connect_disconnect: TD.button({x:510,y:70,width:100,height:50,label:"Disconnect",onchange:Puck.close}),
   }
 
    // Add a comment
