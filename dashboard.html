@@ -117,9 +117,11 @@
         clearInterval(updateDayIntervalID);
         clearInterval(updateBatIntervalID); 
         Puck.close();
+        
    }
    function connectDevice() {
     // connect, and ask for the battery percentage
+    console.log("connect Device");
     Puck.eval("{bat:E.getBattery()}", function(d, err) {
           if (!d) {
            alert("Web Bluetooth connection failed!\n"+(err||""));
