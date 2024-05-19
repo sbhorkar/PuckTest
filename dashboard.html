@@ -127,8 +127,9 @@
 
    function connectDevice(d, err) {
           if (!d) {
-           console.log("Web Bluetooth connection failed!\n"+(err||""));
-           //return;
+            console.log("Web Bluetooth connection failed!\n"+(err||""));
+            alert("Connection failed! Please try again!!");
+            return;
           }
           // remove the 'connect' window
           elements.modal.remove();
