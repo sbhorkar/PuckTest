@@ -34,10 +34,15 @@
    }   
 
    function formatWeekData(data, currentDayIndex) {
+       console.log(data);
+
        if (data.length !== 7) {
            throw new Error('Array must contain exactly 7 elements.');
        }
-   
+
+       if currentDayIndex > 6
+           currentDayIndex = 6;
+    
        const today = new Date();
        const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
        let results = [];
@@ -52,7 +57,8 @@
            let day = dateOfEntry.getDate();
            let dateString = `${month}-${day.toString().padStart(2, '0')}`;
    
-           results.push(`${dateString}: ${data[index]}`);
+           if (data[index] != 0)
+               results.push(`${dateString}: ${data[index]}`);
        }
    
        return results.join(', ');
