@@ -18,6 +18,7 @@
    function arrayToHoursLabel(data) {
        if (data.length !== 24) {
         throw new Error('Array must contain exactly 24 elements.');
+        console.log(data);
        }
    
        return data.map((value, index) => {
@@ -98,18 +99,31 @@
     });
     
     Puck.eval("seven_day_steps", function(daily_s) {
+         if (!daily_s) {
+               throw new Error('Seven Day Steps is empty');
+               return;
+         }
+
          elements.daily_steps.setData(daily_s);
         // console.log(formatWeekData(daily_s, day-1));
          elements.daily_label.setValue(formatWeekData(daily_s, day-1));
        });
 
      Puck.eval("seven_day_active_mins", function(daily_s) {
+         if (!daily_s) {
+               throw new Error('Seven Day Mins is empty');
+               return;
+         }
          elements.daily_active_mins.setData(daily_s);
          //console.log(formatWeekData(daily_s, day-1));
          elements.daily_mins_label.setValue(formatWeekData(daily_s, day-1));
        });
 
      Puck.eval("hourly_steps", function(daily_s) {
+         if (!daily_s) {
+               throw new Error('Hourly Steps is empty');
+               return;
+         }
          elements.hourly_steps.setData(daily_s);
         //console.log(arrayToHoursLabel(daily_s));
          elements.hourly_label.setValue(arrayToHoursLabel(daily_s));
