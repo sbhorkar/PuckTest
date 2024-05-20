@@ -82,79 +82,18 @@
           
           let return_data = JSON.parse(d.data);
           console.log(return_data);
-          //let day=return_dat.day;
-          let active_min=return_data.active_min;
-          let steps=return_data.steps;
-          let daily_average=return_data.daily_average;
-          let daily_average_active_mins=return_data.daily_average_active_mins;
-          let hourly_steps=return_data.hourly_steps;
-          let seven_day_active_mins=return_data.seven_day_active_mins;
-          let seven_day_steps = return_data.seven_day_steps;
-          elements.activity.setValue(active_min);
-          elements.steps.setValue(steps);
-          elements.daily_avg.setValue(daily_average);
-          elements.daily_avg_mins.setValue(daily_average_active_mins);
-          elements.daily_steps.setData(seven_day_steps);
-          elements.daily_label.setValue(formatWeekData(seven_day_steps, day-1));
-          elements.daily_active_mins.setData(seven_day_active_mins);
-          elements.daily_mins_label.setValue(formatWeekData(seven_day_active_mins, day-1));
-          elements.hourly_steps.setData(hourly_steps);
-          elements.hourly_label.setValue(arrayToHoursLabel(hourly_steps));
+        
+          elements.activity.setValue(return_data.active_min);
+          elements.steps.setValue(return_data.steps);
+          elements.daily_avg.setValue(return_data.daily_average);
+          elements.daily_avg_mins.setValue(return_data.daily_average_active_mins);
+          elements.daily_steps.setData(return_data.seven_day_steps);
+          elements.daily_label.setValue(formatWeekData(return_data.seven_day_steps, day-1));
+          elements.daily_active_mins.setData(return_data.seven_day_active_mins);
+          elements.daily_mins_label.setValue(formatWeekData(return_data.seven_day_active_mins, day-1));
+          elements.hourly_steps.setData(return_data.hourly_steps);
+          elements.hourly_label.setValue(arrayToHoursLabel(return_data.hourly_steps));
      });
-   }
-   function getActivity() {
-      Puck.eval("active_min", function(d) {
-         elements.activity.setValue(d);
-      });
-
-    //Puck.eval('Puck.getTemperature()', function(temp) {
-    //    tempInF = (temp.toFixed(2) * (9/5)) + 32;
-    //    elements.temperature.setValue(tempInF);
-    //});
-    
-    Puck.eval("steps", function(d) {
-       elements.steps.setValue(d);
-    });
-    
-    Puck.eval("daily_average", function(avg) {
-        elements.daily_avg.setValue(avg);
-    });
-
-    Puck.eval("daily_average_active_mins", function(avg) {
-        elements.daily_avg_mins.setValue(avg);
-    });
-    
-    Puck.eval("seven_day_steps", function(daily_s) {
-         if (!daily_s) {
-               throw new Error('Seven Day Steps is empty');
-               return;
-         }
-
-         elements.daily_steps.setData(daily_s);
-        // console.log(formatWeekData(daily_s, day-1));
-         elements.daily_label.setValue(formatWeekData(daily_s, day-1));
-       });
-
-     Puck.eval("seven_day_active_mins", function(daily_s) {
-         if (!daily_s) {
-               throw new Error('Seven Day Mins is empty');
-               return;
-         }
-         elements.daily_active_mins.setData(daily_s);
-         //console.log(formatWeekData(daily_s, day-1));
-         elements.daily_mins_label.setValue(formatWeekData(daily_s, day-1));
-       });
-
-     Puck.eval("hourly_steps", function(daily_s) {
-         if (!daily_s) {
-               throw new Error('Hourly Steps is empty');
-               return;
-         }
-         elements.hourly_steps.setData(daily_s);
-        //console.log(arrayToHoursLabel(daily_s));
-         elements.hourly_label.setValue(arrayToHoursLabel(daily_s));
-       });
-
    }
 
    function disconnectDevice() {
