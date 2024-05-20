@@ -78,8 +78,8 @@
    }
 
    function getActivityv2() {
-     Puck.eval("{returnLog();}", function (d) {
-      console.log(d);
+     Puck.eval("{data:returnLog()}", function (d) {
+      console.log(d.data);
      });
    }
    function getActivity() {
