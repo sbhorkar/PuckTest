@@ -76,6 +76,12 @@
          elements.bat.setValue(d.bat);
      });
    }
+
+   function getActivityv2() {
+     Puck.eval("{returnLog()}", function (d) {
+      console.log(d);
+     });
+   }
    function getActivity() {
       Puck.eval("active_min", function(d) {
          elements.activity.setValue(d);
