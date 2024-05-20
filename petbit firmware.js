@@ -1,5 +1,4 @@
-// Version 2.6
-
+// Version 2.8
 // Initialize variables
 var steps = 0;   // Counter for steps
 const range = 60*1000;  // Range for each step interval in milliseconds
@@ -57,6 +56,23 @@ function dumpLogs() {
   console.log("Daily Average Steps:" + daily_average);
   console.log("Daily Average Mins:" + daily_average_active_mins);
 
+}
+
+function returnLog() {
+ // Log object
+  let log_obj = { 
+      "timestamp": curr_min_stamp,  // Current minute timestamp
+      "steps": steps,  // Total steps
+      "active_min": active_min,  // Active minutes
+      "daily_average" :daily_average,
+      "daily_average_active_mins" :daily_average_active_mins,
+      "hourly_steps" : hourly_steps,
+      "seven_day_active_mins": seven_day_active_mins,
+      "seven_day_steps" : seven_day_steps
+    }; 
+  
+  return JSON.stringify(log_obj);
+  
 }
 function startLog() {
   writeLog();
@@ -182,7 +198,7 @@ function activeMins() {
 
 }
 
-console.log("Version 2.6");
+console.log("Version 2.8");
 writeLog();
 // Start the logging at the nearest 15 minutes boundary
 console.log("Start logging in "+ (15 - (myDate.getMinutes()%15)) + " minutes");
