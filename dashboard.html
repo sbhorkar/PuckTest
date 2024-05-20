@@ -79,7 +79,27 @@
 
    function getActivityv2() {
      Puck.eval("{data:returnLog()}", function (d) {
-      console.log(d.data);
+          
+          let return_data = JSON.parse(d.data);
+          console.log(return_data);
+          //let day=return_dat.day;
+          let active_min=return_data.active_min;
+          let steps=return_data.steps;
+          let daily_average=return_data.daily_average;
+          let daily_average_active_mins=return_data.daily_average_active_mins;
+          let hourly_steps=return_data.hourly_steps;
+          let seven_day_active_mins=return_data.seven_day_active_mins;
+          let seven_day_steps = return_data.seven_day_steps;
+          elements.activity.setValue(active_min);
+          elements.steps.setValue(steps);
+          elements.daily_avg.setValue(daily_average);
+          elements.daily_avg_mins.setValue(daily_average_active_mins);
+          elements.daily_steps.setData(seven_day_steps);
+          elements.daily_label.setValue(formatWeekData(seven_day_steps, day-1));
+          elements.daily_active_mins.setData(seven_day_active_mins);
+          elements.daily_mins_label.setValue(formatWeekData(seven_day_active_mins, day-1));
+          elements.hourly_steps.setData(hourly_steps);
+          elements.hourly_label.setValue(arrayToHoursLabel(hourly_steps));
      });
    }
    function getActivity() {
@@ -158,7 +178,7 @@
      
           updateDay();
           // getSteps();
-          getActivityIntervalID = setInterval(getActivity, 2000);
+          getActivityIntervalID = setInterval(getActivityv2, 2000);
           updateDayIntervalID = setInterval(updateDay, 1000*60*15);
           updateBatIntervalID = setInterval(updateBat, 1000*60);
    }
