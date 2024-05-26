@@ -114,7 +114,7 @@
           elements.modal.remove();
           device_connected = true;
           elements.bat.setValue(d.bat);
-          Puck.eval("myDate", function(d) {
+          Puck.eval("myDate.toString()", function(d) {
               elements.heading.setValue(d);
           });
      
