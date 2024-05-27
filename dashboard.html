@@ -103,7 +103,7 @@
              Puck.write(write_string, function (d) { console.log(d);});
              console.log("Updating time to " + Date.now());
              Puck.eval("main()", function (d){console.log(d);});
-        }
+        });
    }
                   
    function connectDevice(d, err) {
