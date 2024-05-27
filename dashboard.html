@@ -94,6 +94,18 @@
         document.body.appendChild(elements.modal);
    }
 
+   function adjustTime() {
+        Puck.eval("myTime", function (d) {
+        let device_time = d;
+        console.log(device_time.toString());
+        if (device_time.getFullYear() < 2024) {
+             let write_string = "setTime(" + Date.now() + "); \n";
+             await Puck.write(write_string);
+             console.log("Updating time to " + Date.now());
+             Puck.eval("main()", function (d){console.log(d)});
+        }
+   }
+                  
    function connectDevice(d, err) {
           if (!d) {
             console.log("Web Bluetooth connection failed!\n"+(err||""));
@@ -102,7 +114,8 @@
           }
           // remove the 'connect' window
           elements.modal.remove();
-          device_connected = true;
+
+          adjustTime();
           elements.bat.setValue(d.bat);
      
           getActivity(); 
