@@ -101,9 +101,7 @@
              if (device_time.getFullYear() < 2024) {
                   const timestamp = Date.now();
                   const code = `
-                      var date = new Date(${timestamp});
-                      setTime(date.getTime() / 1000);
-                      console.log("Date and Time set to:", date);
+                      setTime(new Date(${timestamp}).getTime() / 1000);
                   `;
 
                    try {
