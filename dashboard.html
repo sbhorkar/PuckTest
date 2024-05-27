@@ -99,10 +99,21 @@
              let device_time = new Date(d);
              console.log(device_time.toString());
              if (device_time.getFullYear() < 2024) {
-                  let write_string = "setTime(" + Date.now() + "); \n";
-                  Puck.write(write_string, function (d) { console.log(d);});
+                  const timestamp = Date.now();
+                  const code = `
+                      var date = new Date(${timestamp});
+                      setTime(date.getTime() / 1000);
+                      console.log("Date and Time set to:", date);
+                  `;
+
+                   try {
+                       await Puck.write(code);
+                       console.log('Current Date and Time set on Puck.js');
+                   } catch (error) {
+                       console.error('Error setting date and time on Puck.js:', error);
+                   }
                   console.log("Updating time to " + Date.now());
-                  Puck.eval("main()", function (d){console.log(d);});
+                  Puck.eval("setupDevice()", function (d){ });
               }
         });
    }
