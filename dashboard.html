@@ -95,8 +95,8 @@
    }
 
    function adjustTime() {
-        Puck.eval("myTime", function (d) {
-             let device_time = d;
+        Puck.eval("timestamp:Date.now()", function (d) {
+             let device_time = d.timestamp;
              console.log(device_time.toString());
              if (device_time.getFullYear() < 2024) {
                   let write_string = "setTime(" + Date.now() + "); \n";
