@@ -96,13 +96,14 @@
 
    function adjustTime() {
         Puck.eval("myTime", function (d) {
-        let device_time = d;
-        console.log(device_time.toString());
-        if (device_time.getFullYear() < 2024) {
-             let write_string = "setTime(" + Date.now() + "); \n";
-             Puck.write(write_string, function (d) { console.log(d);});
-             console.log("Updating time to " + Date.now());
-             Puck.eval("main()", function (d){console.log(d);});
+             let device_time = d;
+             console.log(device_time.toString());
+             if (device_time.getFullYear() < 2024) {
+                  let write_string = "setTime(" + Date.now() + "); \n";
+                  Puck.write(write_string, function (d) { console.log(d);});
+                  console.log("Updating time to " + Date.now());
+                  Puck.eval("main()", function (d){console.log(d);});
+              }
         });
    }
                   
