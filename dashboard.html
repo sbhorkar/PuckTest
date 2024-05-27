@@ -64,20 +64,8 @@
        return results.join(', ');
    }
    
-   function updateDay() {
-    Puck.eval("day", function(d) {
-         day = d;
-         console.log('Day' + day);
-      });
-   } 
 
-   function updateBat() {
-     Puck.eval("{bat:E.getBattery()}", function(d, err) {
-         elements.bat.setValue(d.bat);
-     });
-   }
-
-   function getActivityv2() {
+   function getActivity() {
      Puck.eval("{data:returnLog()}", function (d) {
           
           let return_data = JSON.parse(d.data);
@@ -101,8 +89,7 @@
 
    function disconnectDevice() {
         clearInterval(getActivityIntervalID);
-        //clearInterval(updateDayIntervalID);
-        //clearInterval(updateBatIntervalID); 
+        
         Puck.close();
         document.body.appendChild(elements.modal);
    }
@@ -117,15 +104,9 @@
           elements.modal.remove();
           device_connected = true;
           elements.bat.setValue(d.bat);
-          //Puck.eval("myDate.toString()", function(d) {
-            //  elements.heading.setValue(d);
-          //});
      
-          getActivityv2(); //updateDay();
-          // getSteps();
-          getActivityIntervalID = setInterval(getActivityv2, 30*1000); // 30 seconds
-          //updateDayIntervalID = setInterval(updateDay, 1000*60*15);
-          //updateBatIntervalID = setInterval(updateBat, 15*60*1000); // 15 minutes
+          getActivity(); 
+          getActivityIntervalID = setInterval(getActivity, 30*1000); // 30 seconds
    }
    
    function onConnectDevice() {
