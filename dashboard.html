@@ -94,7 +94,7 @@
         document.body.appendChild(elements.modal);
    }
 
-   async function adjustTime() {
+   function adjustTime() {
         Puck.eval("Date.now()", function (d) {
              let device_time = new Date(d);
              console.log(device_time.toString());
@@ -112,7 +112,6 @@
                    }
                   console.log("Updating time to " + Date.now());
                   Puck.eval("setupDevice()", function (d){ });
-                  
               }
         });
    }
@@ -126,7 +125,7 @@
           // remove the 'connect' window
           elements.modal.remove();
 
-          await adjustTime();
+          adjustTime();
           elements.bat.setValue(d.bat);
      
           getActivity(); 
