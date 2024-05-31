@@ -28,7 +28,7 @@
                    return index === 0 ? `12am : ${value}` : `${index}am : ${value}`; // Special handling for midnight as 12 AM
                } else if (index == 12) {
                    return `12pm: ${value}`;
-                else {
+               } else {
                    return `${index - 12}pm : ${value}`;
                }
            }
