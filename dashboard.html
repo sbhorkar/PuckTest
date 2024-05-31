@@ -1,7 +1,7 @@
 <html>
  <head>
   <title style="color: #252627;">PetBit Dashboard 🐾</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=620, initial-scale=1">
  </head>
  <body style="width:620px;height:450px">
   <link href="https://espruino.github.io/TinyDash/tinydash.css" rel="stylesheet">
@@ -24,9 +24,11 @@
        return data.map((value, index) => {
            if (value !== 0) {
                // Apply AM/PM formatting based on the index
-               if (index <= 12) {
+               if (index < 12) {
                    return index === 0 ? `12am : ${value}` : `${index}am : ${value}`; // Special handling for midnight as 12 AM
-               } else {
+               } else if (index == 12) {
+                   return `12pm: ${value}`;
+                else {
                    return `${index - 12}pm : ${value}`;
                }
            }
@@ -140,19 +142,19 @@
    
    // Set up the controls we see on the screen    
    var elements = {
-    heading :   TD.value({x:10,y:10,width:390,height:80,label:"PetBit Dashboard 🐾 Version 3.0", value:0}),
-    bat :       TD.value({x:410,y:10,width:190,height:80,label:"Battery %",value:0}),
-    disconnect: TD.button({x:610,y:10,width:190,height:80,label:"Disconnect",onchange:disconnectDevice}),
-    steps :     TD.gauge({x:10,y:100,width:190,height:220,label:"Today's Steps",value:0,min:0,max:10000}),
-    activity :  TD.gauge({x:210,y:100,width:190,height:220,label:"Today's Active Minutes",value:0,min:0,max:1440}),
-    daily_avg : TD.gauge({x:410,y:100,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
-    daily_avg_mins : TD.gauge({x:610,y:100,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440}),
-    hourly_steps :   TD.graph({x:10,y:330,width:800,height:300,label:"Hourly Steps", gridy:daily_gridy}), 
-    hourly_label:    TD.value({x:10,y:630,width:800,height:50,label:"Hourly Steps", value:" "}),
-    daily_steps :       TD.graph({x:10,y:690,width:400,height:300,label:"Daily Steps", gridy:daily_gridy}),
-    daily_active_mins : TD.graph({x:410,y:690,width:400,height:300,label:"Daily Active Minutes", gridy:daily_gridy}),
-    daily_label:      TD.value({x:10,y:990,width:400,height:100,label:"Daily Steps", value:" " }),
-    daily_mins_label: TD.value({x:410,y:990,width:400,height:100,label:"Daily Active Minutes", value:" "}),
+    heading :   TD.value({x:10,y:10,width:390,height:70,label:"PetBit Dashboard 🐾 Version 3.0", value:0}),
+    bat :       TD.value({x:410,y:10,width:190,height:70,label:"Battery %",value:0}),
+    disconnect: TD.button({x:10,y:90,width:190,height:80,label:"Disconnect",onchange:disconnectDevice}),
+    steps :     TD.gauge({x:10,y:180,width:190,height:220,label:"Today's Steps",value:0,min:0,max:10000}),
+    activity :  TD.gauge({x:210,y:180,width:190,height:220,label:"Today's Active Minutes",value:0,min:0,max:1440}),
+    daily_avg : TD.gauge({x:410,y:180,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
+    daily_avg_mins : TD.gauge({x:610,y:180,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440}),
+    hourly_steps :   TD.graph({x:10,y:410,width:800,height:300,label:"Hourly Steps", gridy:daily_gridy}), 
+    hourly_label:    TD.value({x:10,y:710,width:800,height:50,label:"Hourly Steps", value:" "}),
+    daily_steps :       TD.graph({x:10,y:770,width:400,height:300,label:"Daily Steps", gridy:daily_gridy}),
+    daily_active_mins : TD.graph({x:410,y:770,width:400,height:300,label:"Daily Active Minutes", gridy:daily_gridy}),
+    daily_label:      TD.value({x:10,y:1070,width:400,height:100,label:"Daily Steps", value:" " }),
+    daily_mins_label: TD.value({x:410,y:1070,width:400,height:100,label:"Daily Active Minutes", value:" "}),
     //temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:onConnectDevice})
 
