@@ -1,4 +1,3 @@
-// Version 2.8
 // Initialize variables
 var steps = 0;   // Counter for steps
 const range = 60*1000;  // Range for each step interval in milliseconds
@@ -20,17 +19,68 @@ let hourly_steps = new Array(24).fill(0); // Steps every hour of the day
 let quarter_steps = new Array(4).fill(0); // Steps in 15 
 let daily_average = 0;
 let daily_average_active_mins = 0; 
+const logging_interval = 15; // minutes
+const version = "6.2";
+let ran_main = 0;
 
-// Set timezone and DST
-//E.setTimeZone(-7);
-E.setDST(60,-480,1,0,2,0,120,0,0,10,0,120);
-//E.setDST();
-prev_day = myDate.getDate();
-prev_hr = myDate.getHours();
-console.log(myDate);
+function copyLastData(prev_data) {
+  let old_log_obj = JSON.parse(prev_data);
+  
+  let old_log_date = new Date(old_log_obj.timestamp);
+  let old_log_day = old_log_date.getDate();
+  
+  // Don't use the data if the current date is not correct
+  if (myDate.getFullYear() < 2024) {
+    require("Storage").write("old_log", prev_data);
+    return;
+  }
+  
+  if (old_log_date.getFullYear() < 2024) {
+     prev_data = require("Storage").read("old_log");
+     if (prev_data != undefined) { 
+       console.log("Restoring known old log");
+       old_log_obj = JSON.parse(prev_data);
+       old_log_date = new Date(old_log_obj.timestamp);
+       old_log_day = old_log_date.getDate();
+     }
+  }
+  
+  // Calculate the difference in time (milliseconds)
+  const timeDifference = Math.abs(myDate - old_log_date);
+    
+  // Convert time difference to days
+  const dayDifference = Math.round(timeDifference / (1000 * 60 * 60 * 24));
+  
+  console.log("Old log is more than " + dayDifference + " old.");
+   
+  if ((dayDifference) > 7) 
+    return;
+  
 
-// Open log file in write mode
-//let log_file=require("Storage").open("log", "w");
+  if (dayDifference == 0) {
+    console.log("From the same day, copy everything..");
+    steps = old_log_obj.steps;
+    active_min = old_log_obj.active_min;
+    hourly_steps = old_log_obj.hourly_steps;
+  }
+  
+  seven_day_active_mins = old_log_obj.seven_day_active_mins;
+  seven_day_steps = old_log_obj.seven_day_steps;
+  day = dayDifference + 1;
+  
+  for (i = 0; i < day-1; i++) {
+    console.log("shift.." + i);
+    seven_day_steps.shift(); 
+    seven_day_steps.push(0);
+    seven_day_active_mins.shift();
+    seven_day_active_mins.push(0);
+  }
+  
+  averageDaily();
+    
+//dumpLogs();
+  
+}
 
 function averageDaily() {
   let total_steps = 0;
@@ -48,6 +98,7 @@ function averageDaily() {
 }
 
 function dumpLogs() {
+  console.log("Day:" + myDate.toString());
   console.log("Steps: " + steps);
   console.log(seven_day_steps);
   console.log(seven_day_active_mins);
@@ -61,7 +112,10 @@ function dumpLogs() {
 function returnLog() {
  // Log object
   let log_obj = { 
-      "timestamp": curr_min_stamp,  // Current minute timestamp
+      "bat" : E.getBattery(),
+      "day": day, // Day
+      "timestamp": myDate,  // Current minute timestamp
+      "dateString": new Date(Date.now()).toString(), 
       "steps": steps,  // Total steps
       "active_min": active_min,  // Active minutes
       "daily_average" :daily_average,
@@ -74,47 +128,30 @@ function returnLog() {
   return JSON.stringify(log_obj);
   
 }
+
 function startLog() {
-  writeLog();
-  console.log("Start timer");
+  updateLog();
+ // console.log("Start timer");
   // Write log every 15 minutes
-  setInterval(writeLog, 15000*60);
+  setInterval(updateLog, logging_interval * 1000*60);
 }
 
-function cleanOldLog() {
-  
-  var locateFile = "steps_log_daily_" + (day - 1);
-    console.log("Looking for :" + locateFile);
-    var regex = new RegExp(locateFile);
-    var fileList = require("Storage").list(/steps_log_daily_/);
-      
-    var filteredList = fileList.filter(function(fileName) {
-        return regex.test(fileName);
-    });
-  
-    console.log("File name to remove:" + regex);
-    console.log("Filtered List:" + filteredList);
-}
-
-// Function to write logs - runs every 15 minutes regardless of the activity
-function writeLog() {
+// Function to write logs - runs every longing_interval minutes regardless of the activity
+function updateLog() {
   date_now = Date.now();  // Update current timestamp
   myDate = new Date(date_now);  // Update current date object
-  console.log(myDate.toString());
+
   curr_min_stamp = Math.round(date_now/ range);  // Update current minute timestamp
   let curr_day = myDate.getDate();
   let curr_hr = myDate.getHours();
   
-    console.log("today:"+ curr_day + " prev:"+ prev_day);
-      console.log("now hour:"+ curr_hr + " prev:"+ prev_hr);
+//    console.log("today:"+ curr_day + " prev:"+ prev_day);
+  //  console.log("now hour:"+ curr_hr + " prev:"+ prev_hr);
 
   // Reset daily steps when the day changes
   if (curr_day != prev_day) {
     day++;
-    
-//    if (day > 1) // need to change to 7 once testing is dopne.
-  //    cleanOldLog();
-    
+        
     steps = 0;
     active_min = 0;
     hourly_steps.fill(0);
@@ -128,42 +165,32 @@ function writeLog() {
         seven_day_active_mins.push(0);
     }
     
-    // New day, new steps log
-//log_file.erase();
-    //require("Storage").compact();
-//    log_file = require("Storage").open("steps_log", "w");
-  }
+   }
   
    if (curr_hr != prev_hr) {
       
       curr_hr_steps = 0;
       prev_hr = curr_hr;
-      dumpLogs();
+      //dumpLogs();
 
     }
   
   // Update Daily Average  
   averageDaily();
-
-  // Log object
-  let log_obj = { 
-      "timestamp": curr_min_stamp,  // Current minute timestamp
-      "steps": steps,  // Total steps
-      "active_min": active_min,  // Active minutes
-    };
   
   // Write log object to file and storage
-  //log_file.write(JSON.stringify(log_obj));
-  //require("Storage").write("steps_log_daily_"+ day, JSON.stringify(log_obj));
-  
+  require("Storage").write("log", returnLog());
+    
   // Log the action to console
-  console.log("wrote log " + JSON.stringify(log_obj) + " at " + curr_min_stamp + " "       + myDate.getDate() + "/" + (myDate.getMonth()+1));
+  console.log("wrote log at " + myDate.toString());
 }
   
 // Function to handle active minutes
 function activeMins() {
+  //console.log("activeMins" + steps);
   steps++;  // Increment step count
   curr_hr_steps++;
+  //console.log("activeMins" + steps);
   
   curr_min_stamp = Math.round(Date.now() / range);  // Update current minute timestamp
   
@@ -198,14 +225,49 @@ function activeMins() {
 
 }
 
-console.log("Version 2.8");
-writeLog();
-// Start the logging at the nearest 15 minutes boundary
-console.log("Start logging in "+ (15 - (myDate.getMinutes()%15)) + " minutes");
-setTimeout(startLog, ((15 - (myDate.getMinutes()%15)))*1000*60);
+function setupDevice() {
 
-// Start step counter
-require("puckjsv2-accel-steps").on();
-Puck.on('accel',function(a) {
-  activeMins();  // Handle active minutes on step
-});
+    console.log("Version" + version);
+    myDate = new Date(Date.now());
+  
+    let old_data = require("Storage").read("log"); 
+    if ((old_data != undefined)) {
+        console.log("Old log exists");
+        console.log(old_data); 
+        copyLastData(old_data);
+    }
+  
+      // Set timezone and DST
+    // California
+    //E.setDST(60,-480,1,0,2,0,120,0,0,10,0,120);
+
+    // United Kingdom
+    E.setDST(60,0,4,0,2,0,60,4,0,9,0,120);
+
+    date_now = Date.now();  // Current timestamp
+    prev_min_stamp = Math.round(date_now / range);  // Previous minute timestamp
+    
+    prev_day = myDate.getDate();
+    console.log(prev_day);
+    prev_hr = myDate.getHours();
+    console.log(myDate);
+
+    // Change the name
+    NRF.setAdvertising({}, {name: "Uno"});
+
+    updateLog();
+    // Start the logging at the nearest 15 minutes boundary
+    console.log("Start logging in "+ (logging_interval - (myDate.getMinutes()%logging_interval)) + " minutes");
+    setTimeout(startLog, ((logging_interval - (myDate.getMinutes()%logging_interval)))*1000*60);
+
+    // Start step counter
+   require("puckjsv2-accel-steps").on();
+    Puck.on('accel',function(a) {
+      activeMins();  // Handle active minutes on step
+    });
+}
+
+
+
+
+setupDevice();
