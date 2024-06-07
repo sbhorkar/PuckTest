@@ -8,7 +8,7 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   daily_gridy = 50;
+   daily_gridy = 100;
    day = 0;
    device_connected = false;
    getActivityIntervalID = 0;
@@ -131,7 +131,7 @@
           elements.bat.setValue(d.bat);
      
           getActivity(); 
-          getActivityIntervalID = setInterval(getActivity, 30*1000); // 30 seconds
+          getActivityIntervalID = setInterval(getActivity, 15*1000); // 30 seconds
    }
    
    function onConnectDevice() {
