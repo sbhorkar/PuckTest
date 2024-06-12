@@ -8,9 +8,9 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   daily_gridy = 100;
+   dailyGridy = 100;
    day = 0;
-   device_connected = false;
+   deviceConnected = false;
    getActivityIntervalID = 0;
    updateDayIntervalID = 0;
    updateBatIntervalID = 0;
@@ -70,22 +70,22 @@
    function getActivity() {
      Puck.eval("{data:returnLog()}", function (d) {
           
-          let return_data = JSON.parse(d.data);
-          console.log(return_data);
+          let returnData = JSON.parse(d.data);
+          console.log(returnData);
         
-          elements.bat.setValue(return_data.bat);
-          day = return_data.day;
-          elements.heading.setValue(return_data.dateString);
-          elements.activity.setValue(return_data.activeMin);
-          elements.steps.setValue(return_data.steps);
-          elements.daily_avg.setValue(return_data.dailyAverage);
-          elements.daily_avg_mins.setValue(return_data.dailyAverageActiveMins);
-          elements.daily_steps.setData(return_data.sevenDaySteps);
-          elements.daily_label.setValue(formatWeekData(return_data.sevenDaySteps, day-1));
-          elements.daily_active_mins.setData(return_data.sevenDayActiveMins);
-          elements.daily_mins_label.setValue(formatWeekData(return_data.sevenDayActiveMins, day-1));
-          elements.hourly_steps.setData(return_data.hourlySteps);
-          elements.hourly_label.setValue(arrayToHoursLabel(return_data.hourlySteps));
+          elements.bat.setValue(returnData.bat);
+          day = returnData.day;
+          elements.heading.setValue(returnData.dateString);
+          elements.activity.setValue(returnData.activeMin);
+          elements.steps.setValue(returnData.steps);
+          elements.dailyAvg.setValue(returnData.dailyAverage);
+          elements.dailyAvgMins.setValue(returnData.dailyAverageActiveMins);
+          elements.dailySteps.setData(returnData.sevenDaySteps);
+          elements.dailyLabel.setValue(formatWeekData(returnData.sevenDaySteps, day-1));
+          elements.dailyActiveMins.setData(returnData.sevenDayActiveMins);
+          elements.dailyMinsLabel.setValue(formatWeekData(returnData.sevenDayActiveMins, day-1));
+          elements.hourlySteps.setData(returnData.hourlySteps);
+          elements.hourlyLabel.setValue(arrayToHoursLabel(returnData.hourlySteps));
      });
    }
 
@@ -98,9 +98,9 @@
 
    function adjustTime() {
         Puck.eval("Date.now()", function (d) {
-             let device_time = new Date(d);
-             console.log(device_time.toString());
-             if (device_time.getFullYear() < 2024) {
+             let deviceTime = new Date(d);
+             console.log(deviceTime.toString());
+             if (deviceTime.getFullYear() < 2024) {
                   const timestamp = Date.now();
                   const code = `
                       setTime(new Date(${timestamp}).getTime() / 1000);
@@ -147,14 +147,14 @@
     disconnect: TD.button({x:10,y:90,width:190,height:80,label:"Disconnect",onchange:disconnectDevice}),
     steps :     TD.gauge({x:10,y:180,width:190,height:220,label:"Today's Steps",value:0,min:0,max:10000}),
     activity :  TD.gauge({x:210,y:180,width:190,height:220,label:"Today's Active Minutes",value:0,min:0,max:1440}),
-    daily_avg : TD.gauge({x:10,y:410,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
-    daily_avg_mins : TD.gauge({x:210,y:410,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440, gridy:60}),
-    hourly_steps :   TD.graph({x:10,y:640,width:600,height:300,label:"Hourly Steps", gridy:daily_gridy, gridx:1}), 
-    hourly_label:    TD.value({x:10,y:940,width:600,height:100,label:"Hourly Steps", value:" "}),
-    daily_steps :       TD.graph({x:10,y:1050,width:600,height:300,label:"Daily Steps", gridy:daily_gridy}),
-    daily_label:      TD.value({x:10,y:1350,width:600,height:100,label:"Daily Steps", value:" " }),
-    daily_active_mins : TD.graph({x:10,y:1460,width:600,height:300,label:"Daily Active Minutes", gridy:daily_gridy}),
-    daily_mins_label: TD.value({x:10,y:1760,width:600,height:100,label:"Daily Active Minutes", value:" "}),
+    dailyAvg : TD.gauge({x:10,y:410,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
+    dailyAvgMins : TD.gauge({x:210,y:410,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440, gridy:60}),
+    hourlySteps :   TD.graph({x:10,y:640,width:600,height:300,label:"Hourly Steps", gridy:dailyGridy, gridx:1}), 
+    hourlyLabel:    TD.value({x:10,y:940,width:600,height:100,label:"Hourly Steps", value:" "}),
+    dailySteps :       TD.graph({x:10,y:1050,width:600,height:300,label:"Daily Steps", gridy:dailyGridy}),
+    dailyLabel:      TD.value({x:10,y:1350,width:600,height:100,label:"Daily Steps", value:" " }),
+    dailyActiveMins : TD.graph({x:10,y:1460,width:600,height:300,label:"Daily Active Minutes", gridy:dailyGridy}),
+    dailyMinsLabel: TD.value({x:10,y:1760,width:600,height:100,label:"Daily Active Minutes", value:" "}),
     //temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:onConnectDevice})
 
