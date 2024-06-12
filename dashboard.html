@@ -76,16 +76,16 @@
           elements.bat.setValue(return_data.bat);
           day = return_data.day;
           elements.heading.setValue(return_data.dateString);
-          elements.activity.setValue(return_data.active_min);
+          elements.activity.setValue(return_data.activeMin);
           elements.steps.setValue(return_data.steps);
-          elements.daily_avg.setValue(return_data.daily_average);
-          elements.daily_avg_mins.setValue(return_data.daily_average_active_mins);
-          elements.daily_steps.setData(return_data.seven_day_steps);
-          elements.daily_label.setValue(formatWeekData(return_data.seven_day_steps, day-1));
-          elements.daily_active_mins.setData(return_data.seven_day_active_mins);
-          elements.daily_mins_label.setValue(formatWeekData(return_data.seven_day_active_mins, day-1));
-          elements.hourly_steps.setData(return_data.hourly_steps);
-          elements.hourly_label.setValue(arrayToHoursLabel(return_data.hourly_steps));
+          elements.daily_avg.setValue(return_data.dailyAverage);
+          elements.daily_avg_mins.setValue(return_data.dailyAverageActiveMins);
+          elements.daily_steps.setData(return_data.sevenDaySteps);
+          elements.daily_label.setValue(formatWeekData(return_data.sevenDaySteps, day-1));
+          elements.daily_active_mins.setData(return_data.sevenDayActiveMins);
+          elements.daily_mins_label.setValue(formatWeekData(return_data.sevenDayActiveMins, day-1));
+          elements.hourly_steps.setData(return_data.hourlySteps);
+          elements.hourly_label.setValue(arrayToHoursLabel(return_data.hourlySteps));
      });
    }
 
