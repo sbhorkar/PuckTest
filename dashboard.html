@@ -156,7 +156,7 @@
     dailyAvgMins : TD.gauge({x:210,y:410,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440, gridy:60}),
     hourlySteps :   TD.graph({x:10,y:640,width:600,height:300,label:"Hourly Steps", gridy:dailyGridy, gridx:1}), 
     hourlyLabel:    TD.value({x:10,y:940,width:600,height:100,label:"Hourly Steps", value:" "}),
-    dailySteps :       TD.graph({x:10,y:1050,width:600,height:300,label:"Daily Steps", gridy:dailyGridy}),
+    dailySteps :       TD.graph({x:10,y:1050,width:600,height:300,label:"Daily Steps", gridy:dailyGridy, gridx:1, xlabel: xlabelFunc }),
     dailyLabel:      TD.value({x:10,y:1350,width:600,height:100,label:"Daily Steps", value:" " }),
     dailyActiveMins : TD.graph({x:10,y:1460,width:600,height:300,label:"Daily Active Minutes", gridy:dailyGridy}),
     dailyMinsLabel: TD.value({x:10,y:1760,width:600,height:100,label:"Daily Active Minutes", value:" "}),
