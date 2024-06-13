@@ -57,7 +57,8 @@
            let month = months[dateOfEntry.getMonth()]; // Use the array to get the month abbreviation
            let day = dateOfEntry.getDate();
            let dateString = `${month}-${day.toString().padStart(2, '0')}`;
-   
+
+          console.log('${dateString}: ${data[index]}');
            if (data[index] != 0)
                results.push(`${dateString}: ${data[index]}`);
        }
