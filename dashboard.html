@@ -140,10 +140,29 @@
       Puck.eval("{bat:E.getBattery()}", connectDevice );    
    }
 
-   function xlabelFunc(x) {
-     console.log(x);
-     return x;
+function xlabalFunc(data) {
+
+       currentDayIndex = day;
+
+       if (currentDayIndex > 6)
+           currentDayIndex = 6;
+    
+       const today = new Date();
+       const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+   
+      
+           // Calculate the date for each entry
+           let dateOfEntry = new Date(today);
+           dateOfEntry.setDate(today.getDate() - (currentDayIndex - data));
+   
+           // Format the date as "MON-DD"
+           let month = months[dateOfEntry.getMonth()]; // Use the array to get the month abbreviation
+           let day = dateOfEntry.getDate();
+           let dateString = `${month}-${day.toString().padStart(2, '0')}`;
+           console.log(dateString);
+       return data;
    }
+
    
    // Set up the controls we see on the screen    
    var elements = {
