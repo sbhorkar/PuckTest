@@ -9,11 +9,18 @@
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
   // Set up the controls we see on the screen    
+
+
   var elements = {
- 
+     dailyActiveMins : TD.graph({x:10,y:1460,width:600,height:300,label:"Daily Active Minutes", gridy:1}),
+
   }
   for (var i in elements)
     document.body.appendChild(elements[i]);
+
+   let sevenDayActiveMins = [100, 200, 300, 0, 500, 1000, 1200];
+   elements.dailyActiveMins.setData(sevenDayActiveMins);
+
   </script>
  </body>
 </html>
