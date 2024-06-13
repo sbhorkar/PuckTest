@@ -10,7 +10,6 @@
   <script>
    dailyGridy = 100;
    day = 0;
-   deviceConnected = false;
    getActivityIntervalID = 0;
    updateDayIntervalID = 0;
    updateBatIntervalID = 0;
@@ -141,26 +140,10 @@
    }
 
 function xlabelFunc(data) {
-
-       currentDayIndex = day;
-
-       if (currentDayIndex > 6)
-           currentDayIndex = 6;
     
-       const today = new Date();
-       const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
-   
-      
-           // Calculate the date for each entry
-           let dateOfEntry = new Date(today);
-           dateOfEntry.setDate(today.getDate() - (currentDayIndex - data));
-   
-           // Format the date as "MON-DD"
-           let month = months[dateOfEntry.getMonth()]; // Use the array to get the month abbreviation
-           let day = dateOfEntry.getDate();
-           let dateString = `${month}-${day.toString().padStart(2, '0')}`;
-           console.log(dateString);
-       return data;
+       let dateString = `Day:${data+1}`;
+       console.log(dateString);
+       return dateString;
    }
 
    
