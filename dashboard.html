@@ -58,7 +58,7 @@
            let day = dateOfEntry.getDate();
            let dateString = `${month}-${day.toString().padStart(2, '0')}`;
 
-          console.log(${dateString},": ", ${data[index]});
+          console.log(${dateString} +": " + ${data[index]});
            if (data[index] != 0)
                results.push(`${dateString}: ${data[index]}`);
        }
