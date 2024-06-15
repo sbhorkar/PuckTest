@@ -140,6 +140,12 @@
       Puck.eval("{bat:E.getBattery()}", connectDevice );    
    }
 
+   function onResetDevice() {
+      // connect, and ask for the battery percentage
+      console.log("connect Device");
+      Puck.eval("E.getBattery()}", connectDevice );    
+   }
+
    function xlabelFuncHour(index) {
     // Apply AM/PM formatting based on the index
                if (index < 12) {
