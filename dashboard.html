@@ -135,7 +135,7 @@
    function connectDevice(d, err) {
           if (!d) {
             console.log("Web Bluetooth connection failed!\n"+(err||""));
-            if (connectAttemp === 1) {
+            if (connectAttempt === 1) {
                 alert("Connection failed! Please try again!!");
             } else {
                 connectAttempt = 1;
