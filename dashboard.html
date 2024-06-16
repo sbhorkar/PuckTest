@@ -64,6 +64,20 @@
            if (data[index] != 0)
                results.push(`${dateString}: ${data[index]}`);
        }
+
+       //fill the remaining labels
+       for (let index = currentDayIndex+1; index < 7; index++){
+        // Calculate the date for each entry
+           let dateOfEntry = new Date(today);
+           dateOfEntry.setDate(today.getDate() + index));
+   
+           // Format the date as "MON-DD"
+           let month = months[dateOfEntry.getMonth()]; // Use the array to get the month abbreviation
+           let day = dateOfEntry.getDate();
+           let dateString = `${month}-${day.toString().padStart(2, '0')}`;
+
+           xDayLabels[index] = dateString;
+       }
    
        return results.join(', ');
    }
