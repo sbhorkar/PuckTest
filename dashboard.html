@@ -173,6 +173,7 @@
           // User clicked "Yes"
           console.log("User chose Yes");
           Puck.eval("resetDevice()", function (d) { });
+          disconnectDevice();
       } else {
           // User clicked "No"
           console.log("User chose No");
