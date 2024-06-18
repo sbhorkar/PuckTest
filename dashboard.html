@@ -164,8 +164,20 @@
 
    function onResetDevice() {
       // connect, and ask for the battery percentage
-      console.log("connect Device");
-      Puck.eval("E.getBattery()}", connectDevice );    
+      console.log("reset Device");
+      // Show a pop-up with Yes/No options
+      let userResponse = confirm("This will erase the data on the device and you will need to reconnect. Do you want to proceed?");
+
+      // Check the user's response
+      if (userResponse) {
+          // User clicked "Yes"
+          console.log("User chose Yes");
+          Puck.eval("resetDevice()", function (d) { });
+      } else {
+          // User clicked "No"
+          console.log("User chose No");
+          return;
+      }
    }
 
    function xlabelFuncHour(index) {
@@ -202,6 +214,7 @@
     dailyLabel:      TD.value({x:10,y:1350,width:600,height:100,label:"Daily Steps", value:" " }),
     dailyActiveMins : TD.graph({x:10,y:1460,width:600,height:300,label:"Daily Active Minutes", gridy:dailyGridy, gridx:1, xlabel: xlabelFuncDay}),
     dailyMinsLabel: TD.value({x:10,y:1760,width:600,height:100,label:"Daily Active Minutes", value:" "}),
+    resetLog: TD.button({x:10,y:1870,width:190,height:80,label:"Reset",onchange:onResetDevice}),
     //temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
     modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:onConnectDevice})
 
