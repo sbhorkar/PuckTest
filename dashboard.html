@@ -59,11 +59,35 @@
            let dateString = `${month}-${day.toString().padStart(2, '0')}`;
 
           //console.log(dateString +": " + data[index]);
-          xDayLabels[index] = dateString;
            if (data[index] != 0)
                results.push(`${dateString}: ${data[index]}`);
        }
+   
+       return results.join(', ');
+   }
+   
+   function setXDayLabels(currentDayIndex) {
 
+       if (currentDayIndex > 6)
+           currentDayIndex = 6;
+    
+       const today = new Date();
+       const months = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+   
+       for (let index = 0; index <= currentDayIndex; index++) {
+           // Calculate the date for each entry
+           let dateOfEntry = new Date(today);
+           dateOfEntry.setDate(today.getDate() - (currentDayIndex - index));
+   
+           // Format the date as "MON-DD"
+           let month = months[dateOfEntry.getMonth()]; // Use the array to get the month abbreviation
+           let day = dateOfEntry.getDate();
+           let dateString = `${month}-${day.toString().padStart(2, '0')}`;
+
+          //console.log(dateString +": " + data[index]);
+          xDayLabels[index] = dateString;
+       }
+    
        //fill the remaining labels
        for (let index = currentDayIndex+1; index < 7; index++){
         // Calculate the date for each entry
@@ -80,14 +104,12 @@
    
        return results.join(', ');
    }
-   
-
    function getActivity() {
      Puck.eval("{data:returnLog()}", function (d) {
           
           let returnData = JSON.parse(d.data);
           console.log(returnData);
-        
+          setXDayLabels(returnData.day-1);
           elements.bat.setValue(returnData.bat);
           elements.heading.setValue(returnData.dateString);
           elements.activity.setValue(returnData.activeMin);
