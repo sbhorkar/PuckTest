@@ -109,18 +109,18 @@
           console.log(returnData);
           setXDayLabels(returnData.day-1);
           elements.bat.setValue(returnData.bat);
-          console.log(returnData.dateString);
-          elements.heading.setValue(returnData.dateString);
-          elements.activity.setValue(returnData.activeMin);
+       
+          elements.heading.setValue(returnData.dS);
+          elements.activity.setValue(returnData.aM);
           elements.steps.setValue(returnData.steps);
-          elements.dailyAvg.setValue(returnData.dailyAverage);
-          elements.dailyAvgMins.setValue(returnData.dailyAverageActiveMins);
-          elements.dailySteps.setData(returnData.sevenDaySteps);
-          elements.dailyLabel.setValue(formatWeekData(returnData.sevenDaySteps, returnData.day-1));
-          elements.dailyActiveMins.setData(returnData.sevenDayActiveMins);
-          elements.dailyMinsLabel.setValue(formatWeekData(returnData.sevenDayActiveMins, returnData.day-1));
-          elements.hourlySteps.setData(returnData.hourlySteps);
-          elements.hourlyLabel.setValue(arrayToHoursLabel(returnData.hourlySteps));
+          elements.dailyAvg.setValue(returnData.dA);
+          elements.dailyAvgMins.setValue(returnData.dAAM);
+          elements.dailySteps.setData(returnData.sDS);
+          elements.dailyLabel.setValue(formatWeekData(returnData.sDS, returnData.day-1));
+          elements.dailyActiveMins.setData(returnData.sDAM);
+          elements.dailyMinsLabel.setValue(formatWeekData(returnData.sDAM, returnData.day-1));
+          elements.hourlySteps.setData(returnData.hS);
+          elements.hourlyLabel.setValue(arrayToHoursLabel(returnData.hS));
      });
    }
 
