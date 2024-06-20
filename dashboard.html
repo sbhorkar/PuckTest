@@ -109,7 +109,8 @@
           console.log(returnData);
           setXDayLabels(returnData.day-1);
           elements.bat.setValue(returnData.bat);
-          elements.heading.setValue(new String(returnData.timeStamp));
+          console.log(returnData.timestamp);
+          elements.heading.setValue(returnData.timeStamp);
           elements.activity.setValue(returnData.activeMin);
           elements.steps.setValue(returnData.steps);
           elements.dailyAvg.setValue(returnData.dailyAverage);
