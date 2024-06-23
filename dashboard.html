@@ -8,7 +8,6 @@
   <script src="https://espruino.github.io/TinyDash/tinydash.js"></script>
   <script src="https://www.puck-js.com/puck.js"></script>  
   <script>
-   dailyGridy = 100;
    let connectAttempt = 0;
    
    getActivityIntervalID = 0;
@@ -204,41 +203,36 @@
 
    function xlabelFuncHour(index) {
     // Apply AM/PM formatting based on the index
-               if (index < 12) {
-                   return index === 0 ? `12am` : `${index}am`; // Special handling for midnight as 12 AM
-               } else if (index == 12) {
-                   return `12pm`;
-               } else {
-                   return `${index - 12}pm`;
-               }
-    
+       if (index < 12) {
+           return index === 0 ? `12am` : `${index}am`; // Special handling for midnight as 12 AM
+       } else if (index == 12) {
+           return `12pm`;
+       } else {
+           return `${index - 12}pm`;
+       }
    }
   
    function xlabelFuncDay(data) {
-       
-      // console.log(xDayLabels[data]);
        return xDayLabels[data];
    }
-
    
    // Set up the controls we see on the screen    
    var elements = {
-    heading :   TD.value({x:10,y:10,width:390,height:70,label:"PetBit Dashboard 🐾 Version 3.0", value:0}),
-    bat :       TD.value({x:210,y:90,width:190,height:80,label:"Battery %",value:0}),
-    disconnect: TD.button({x:10,y:90,width:190,height:80,label:"Disconnect",onchange:disconnectDevice, glyph:"&#x274C;"}),
-    steps :     TD.gauge({x:10,y:180,width:190,height:220,label:"Today's Steps",value:0,min:0,max:10000}),
-    activity :  TD.gauge({x:210,y:180,width:190,height:220,label:"Today's Active Minutes",value:0,min:0,max:1440}),
-    dailyAvg : TD.gauge({x:10,y:410,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
-    dailyAvgMins : TD.gauge({x:210,y:410,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440, gridy:60}),
-    hourlySteps :   TD.graph({x:10,y:640,width:600,height:300,label:"Hourly Steps", gridy:dailyGridy, gridx:1, xlabel: xlabelFuncHour}), 
-    hourlyLabel:    TD.value({x:10,y:940,width:600,height:100,label:"Hourly Steps", value:" "}),
-    dailySteps :       TD.graph({x:10,y:1050,width:600,height:300,label:"Daily Steps", gridy:dailyGridy, gridx:1, xlabel: xlabelFuncDay }),
+    heading:         TD.value({x:10,y:10,width:390,height:70,label:"PetBit Dashboard 🐾", value:0}),
+    bat:             TD.value({x:210,y:90,width:190,height:80,label:"Battery %",value:0}),
+    disconnect:      TD.button({x:10,y:90,width:190,height:80,label:"Disconnect",onchange:disconnectDevice, glyph:"&#x274C;"}),
+    steps:           TD.gauge({x:10,y:180,width:190,height:220,label:"Today's Steps",value:0,min:0,max:10000}),
+    activity:        TD.gauge({x:210,y:180,width:190,height:220,label:"Today's Active Minutes",value:0,min:0,max:1440}),
+    dailyAvg:        TD.gauge({x:10,y:410,width:190,height:220,label:"Daily Average Steps",value:0,min:0,max:1440}),
+    dailyAvgMins:    TD.gauge({x:210,y:410,width:190,height:220,label:"Daily Average Minutes",value:0,min:0,max:1440, gridy:60}),
+    hourlySteps:     TD.graph({x:10,y:640,width:600,height:300,label:"Hourly Steps", gridy:100, gridx:1, xlabel: xlabelFuncHour}), 
+    hourlyLabel:     TD.value({x:10,y:940,width:600,height:100,label:"Hourly Steps", value:" "}),
+    dailySteps :     TD.graph({x:10,y:1050,width:600,height:300,label:"Daily Steps", gridy:1000, gridx:1, xlabel: xlabelFuncDay }),
     dailyLabel:      TD.value({x:10,y:1350,width:600,height:100,label:"Daily Steps", value:" " }),
-    dailyActiveMins : TD.graph({x:10,y:1460,width:600,height:300,label:"Daily Active Minutes", gridy:dailyGridy, gridx:1, xlabel: xlabelFuncDay}),
-    dailyMinsLabel: TD.value({x:10,y:1760,width:600,height:100,label:"Daily Active Minutes", value:" "}),
-    resetLog: TD.button({x:10,y:1870,width:190,height:80,label:"Reset",onchange:onResetDevice, glyph:"&#x1F9E8;" }),
-    //temperature : TD.value({x:210,y:300,width:190,height:50,label:"Temperature °F",value:0}),
-    modal : TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:onConnectDevice})
+    dailyActiveMins: TD.graph({x:10,y:1460,width:600,height:300,label:"Daily Active Minutes", gridy:60, gridx:1, xlabel: xlabelFuncDay}),
+    dailyMinsLabel:  TD.value({x:10,y:1760,width:600,height:100,label:"Daily Active Minutes", value:" "}),
+    resetLog:        TD.button({x:10,y:1870,width:190,height:80,label:"Reset",onchange:onResetDevice, glyph:"&#x1F9E8;" }),
+    modal:           TD.modal({x:10,y:10,width:600,height:350,label:"Click to connect",onchange:onConnectDevice})
 
   }
 
